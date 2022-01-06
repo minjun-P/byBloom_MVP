@@ -21,9 +21,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'byBloom MVP',
       initialRoute: '/',
-      routes: {'/':(context)=>LoginPage(),
-                '/Main':(context)=>MainScreen(),
-                '/Register':(context)=>RegisterPage()},
       getPages: [
         GetPage(
           name: '/',

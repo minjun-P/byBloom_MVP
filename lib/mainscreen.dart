@@ -12,13 +12,14 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
+  List<String> _appBarTitleList = ['시민의 교회','영성 스케쥴','프로필'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFf1f8f7),
         elevation: 0,
-        title: Text('시민의 교회',
+        title: Text(_appBarTitleList[_selectedIndex],
           style: TextStyle(color: Colors.grey, fontSize: 20, fontWeight: FontWeight.bold),
         ),
         titleSpacing: 30,
