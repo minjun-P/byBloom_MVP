@@ -33,9 +33,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             InkWell(
               child: CircleAvatar(
-                backgroundImage: _photo==null?
-    NetworkImage('https://file.mk.co.kr/meet/neds/2018/06/image_readtop_2018_363950_15284412663345335.jpg'):
-                FileImage(_photo!,scale: 10),
+                backgroundImage:
+    NetworkImage('https://file.mk.co.kr/meet/neds/2018/06/image_readtop_2018_363950_15284412663345335.jpg'),
                 radius: 60,
               ),
               onLongPress: () {
