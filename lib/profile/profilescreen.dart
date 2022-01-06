@@ -101,7 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   AddProfilePhoto() {
     getImage(true);
-    profilephoto.uploadPhoto(_photo);
+    //profilephoto.uploadPhoto(_photo);
   }
 
   Future getImage(bool gallery) async {
@@ -139,7 +139,7 @@ class profilephoto {
   uploadPhoto(File? s) async {
     try {
       await storage
-          .ref('$userdir/profilephoto.png')
+          .ref('$userdir/profilephoto.png');
           //.putFile(s);
     } on FirebaseException catch (e) {};
   }
