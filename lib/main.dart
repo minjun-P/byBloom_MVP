@@ -1,8 +1,13 @@
-import 'package:bybloom_mvp/home/homescreen.dart';
+import 'package:bybloom_mvp/Auth/RegisterPage.dart';
+import 'package:bybloom_mvp/Auth/loginPage.dart';
 import 'package:bybloom_mvp/mainscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -14,7 +19,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'byBloom MVP',
-      home: MainScreen(),
+      initialRoute: '/',
+      routes: {'/':(context)=>LoginPage(),
+                '/Main':(context)=>MainScreen(),
+                '/Register':(context)=>RegisterPage()},
+
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(

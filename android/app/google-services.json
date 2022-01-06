@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "525526357726",
+    "firebase_url": "https://bybloommvp-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "bybloommvp",
+    "storage_bucket": "bybloommvp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525526357726:android:1f24dfdfbe0d7b0b01d44f",
+        "android_client_info": {
+          "package_name": "com.example.bybloom_mvp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525526357726-iojr5ug43dbk14km0h9co8qs4aahvp3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk2GZ2WpFl0KEiHuVu4KOpwGjhp_wrztA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525526357726-iojr5ug43dbk14km0h9co8qs4aahvp3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
