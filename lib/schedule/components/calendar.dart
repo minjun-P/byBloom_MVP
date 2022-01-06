@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:bybloom_mvp/schedule/model/calendar_model.dart';
 /**
  * 캘린더 내부 정보를 기록할 객체를 하나 만들어서 날짜별로 해당하는 일정을 표시할 수 있도록
  * 만들어놔야 할 것 같다. 구체적인 방식은 더 고민을 해보자.
@@ -52,9 +52,17 @@ class _CalendarState extends State<Calendar> {
                         return TableCell(
                           child: Container(
                             height: 100,
-                            child: Align(
-                                alignment: Alignment(-0.8,-0.8),
-                                child: Text('${index+2}')
+                            child: Column(
+                              children: [
+                                Align(
+                                    alignment: Alignment(-0.8,-0.8),
+                                    child: Text('${index+2}')
+                                ),
+
+                                _officialScheduleBuilder(OfficialMap,index+2),
+                                _personalScheduleBuilder(PersonalMap,index+2)
+                              ],
+
                             ),
                           ),
                         );
@@ -67,19 +75,71 @@ class _CalendarState extends State<Calendar> {
                         return TableCell(
                           child: Container(
                             height: 100,
-                            child: Align(
-                                alignment: Alignment(-0.8,-0.8),
-                                child: Text('${index+9}')
+                            child: Column(
+                              children: [
+                                Align(
+                                    alignment: Alignment(-0.8,-0.8),
+                                    child: Text('${index+9}')
+                                ),
+
+                                _officialScheduleBuilder(OfficialMap,index+9),
+                                _personalScheduleBuilder(PersonalMap,index+9)
+                              ],
+
                             ),
                           ),
                         );
                       })
 
                   ),
+
                 ],
               ),
             ]
         )
     );
+  }
+
+  _officialScheduleBuilder(Map schedule,int index) {
+
+    if (schedule.containsKey(index.toString())) {
+      return Container(
+        height:20,
+        width: (MediaQuery.of(context).size.width*0.9-20)/7-2,
+        margin: EdgeInsets.symmetric(horizontal: 4),
+        decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(10)
+        ),
+        alignment: Alignment.center,
+        child: Text(schedule[index.toString()],style: TextStyle(fontSize: 7),),
+      );
+
+    } else {
+      return Container(
+        height: 0,
+      );
+    }
+  }
+  _personalScheduleBuilder(Map schedule,int index) {
+
+    if (schedule.containsKey(index.toString())) {
+      return Container(
+        height: 20,
+        width: (MediaQuery.of(context).size.width*0.9-20)/7-2,
+        margin: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
+        decoration: BoxDecoration(
+            color: index%2==0?Colors.cyan:Colors.yellow,
+            borderRadius: BorderRadius.circular(5)
+        ),
+        alignment: Alignment.center,
+        child: Text(schedule[index.toString()],style: TextStyle(fontSize: 7),),
+      );
+
+    } else {
+      return Container(
+        height: 0,
+      );
+    }
   }
 }
