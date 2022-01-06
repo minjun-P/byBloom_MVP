@@ -10,8 +10,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 
 String? pphotoloc;
-final database= FirebaseDatabase.instance;
+final database= FirebaseDatabase(databaseURL: 'https://bybloommvp-default-rtdb.asia-southeast1.firebasedatabase.app/');
 final storage= FirebaseStorage.instance;
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -24,17 +25,25 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   File? _photo;
+  String? downloadURL;
+
+
+
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Scaffold(
+    body: Column(
       children: [
         SizedBox(height: 15,),
         Row(
           children: [
             InkWell(
               child: CircleAvatar(
-                backgroundImage:
-    NetworkImage('https://file.mk.co.kr/meet/neds/2018/06/image_readtop_2018_363950_15284412663345335.jpg'),
+                backgroundImage:downloadURL==null?
+                NetworkImage('https://file.mk.co.kr/meet/neds/2018/06/image_readtop_2018_363950_15284412663345335.jpg'):
+                NetworkImage(downloadURL!),
+
                 radius: 60,
               ),
               onLongPress: () {
@@ -56,6 +65,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         actions: <Widget>[
                           TextButton(onPressed: () {
                             AddProfilePhoto();
+                            setState(() {
+
+                            });
                             Navigator.pop(context);
                           }, child: Text('예')),
                           TextButton(onPressed: () {
@@ -96,12 +108,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
         Container(color: Colors.red,)
       ],
+    ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        database.ref().child('test').set({"test":1});
+      },
+      child: Icon(Icons.add_a_photo),
+
+      ),
     );
   }
 
-  AddProfilePhoto() {
-    getImage(true);
-    profilephoto.uploadPhoto(_photo);
+  AddProfilePhoto() async {
+    await getImage(true);  //갤러리에서 사진가져오
+    profilephoto s= new profilephoto();
+    print(_photo);
+    String? uploadsuccess= await s.uploadPhoto(_photo); //db에업로
+    print(uploadsuccess);
+    downloadURL= await storage.ref(uploadsuccess).getDownloadURL();
+
   }
 
   Future getImage(bool gallery) async {
@@ -136,11 +160,33 @@ class profilephoto {
       .getcurrentUser()
       ?.uid}';
 
-  uploadPhoto(File? s) async {
+  Future<String?> uploadPhoto(File? s) async {
     try {
+      print("주소 $storage.ref().toString()");
+
       await storage
           .ref('$userdir/profilephoto.png')
-          //.putFile(s);
-    } on FirebaseException catch (e) {};
+          .putFile(s!);
+      return '$userdir/profilephoto.png';
+    } on FirebaseException catch (e) {
+      print(e);
+      return null;
+    }
   }
-}
+  /*
+  Future<bool> uploadURLtoDB(String path) async{
+    try{
+      print('try');
+      await database
+      .ref(path)
+      .child('profile')
+      .child('photo')
+      .push()
+      .set({'url':path});
+      return true;
+    } catch(e){
+      print(e);
+      return false;
+    }*/
+
+  }

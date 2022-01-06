@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-FirebaseDatabase database=FirebaseDatabase(databaseURL: 'https://diaryproto-default-rtdb.asia-southeast1.firebasedatabase.app/');
+FirebaseDatabase database=FirebaseDatabase(databaseURL: 'https://bybloommvp-default-rtdb.asia-southeast1.firebasedatabase.app/');
 
 class authservice {// 로그인관련 서비스총괄하는 클래스
   //유저로그
@@ -24,7 +24,7 @@ class authservice {// 로그인관련 서비스총괄하는 클래스
     try {
       UserCredential s= await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
       await s.user!.updateDisplayName(nickname);
-      DatabaseReference reference=database.ref("users/${s.user!.uid}");
+     database.ref("users/${s.user!.uid}").set({"usernickname":nickname});
       return s.user;
     }catch(e){
       print(e);
