@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'authservice.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import
 Map<String,dynamic>? s={'아이디':'','비밀번호':'','닉네임':'','비밀번호확인':''};
 
 

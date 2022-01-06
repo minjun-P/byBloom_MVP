@@ -39,6 +39,7 @@ dependencies:
   firebase_database: ^9.0.4
   image_picker: ^0.8.4+4
   firebase_storage: ^10.2.4
+  get: ^4.6.1
 
 
 
