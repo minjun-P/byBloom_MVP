@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'authservice.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
+
 Map<String,dynamic>? s={'아이디':'','비밀번호':'','닉네임':'','비밀번호확인':''};
 
 
@@ -23,7 +25,8 @@ class LoginPage extends StatelessWidget {
                 TextButton(
                   child: Text('회원가입'),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/Register');
+                    // 라우팅 - Get으로 변경
+                    Get.toNamed('/Register');
                   },
                 )
               ],
@@ -72,7 +75,15 @@ class LoginForm extends StatelessWidget {
                 _formKey.currentState!.save();
                 User? suc= await authservice.signin(s!['아이디'],s!['비밀번호']);
                 if(suc!=null){
-                  Navigator.pushNamed(context, '/Main');
+                  // get으로 네비게이터 변경
+                  Get.offNamed('/Main');
+                } else{
+                  Get.defaultDialog(
+                      title: "로그인 오류",
+                      textConfirm: '확인',
+                      onConfirm: () => Get.back(),
+                      middleText: "계정 정보가 일치하지 않습니다."
+                  );
                 }
               }
             },

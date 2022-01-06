@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import 'authservice.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -79,7 +81,8 @@ class RegisterForm extends StatelessWidget {
                 User? suc= await authservice.register(s!['아이디'],s!['비밀번호'],s!['닉네임']);
 
                 if(suc!=null){
-                  Navigator.pushNamed(context, '/Main');
+                  // Get으로 라우팅 변경
+                  Get.offAllNamed('/Main');
                 }
 
               }
