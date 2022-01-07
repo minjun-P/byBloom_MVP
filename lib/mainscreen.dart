@@ -2,6 +2,7 @@ import 'package:bybloom_mvp/home/homescreen.dart';
 import 'package:bybloom_mvp/profile/profilescreen.dart';
 import 'package:bybloom_mvp/schedule/shcedulescreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -17,21 +18,15 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFFf1f8f7),
-        elevation: 0,
-        title: Text(_appBarTitleList[_selectedIndex],
-          style: TextStyle(color: Colors.grey, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        titleSpacing: 30,
-        actions: const [
+        title: Text(_appBarTitleList[_selectedIndex]),
+        actions: [
           Icon(Icons.notifications),
-          SizedBox(width: 7,),
+          SizedBox(width: 10.w,),
           Icon(Icons.menu),
-          SizedBox(width: 7,),
+          SizedBox(width: 10.w,),
           Icon(Icons.search),
-          SizedBox(width: 7,),
+          SizedBox(width: 10.w,),
         ],
-        toolbarHeight: 60,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/20),

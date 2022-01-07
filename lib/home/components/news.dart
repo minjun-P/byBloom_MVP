@@ -1,6 +1,104 @@
+import 'package:bybloom_mvp/home/detail_pages/church_news_page.dart';
+import 'package:bybloom_mvp/home/detail_pages/people_news_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:bybloom_mvp/home/home_controller.dart';
+
+class PeopleNews extends StatelessWidget {
+  const PeopleNews({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    PeopleNewsController controller = Get.put(PeopleNewsController());
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        InkWell(
+          onTap: () => Get.to(PeopleNewsPage()),
+          child: Text('교인소식',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),),
+        ),
+        Obx(()=>Card(
+
+          color: Colors.transparent,
+          elevation: 0,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(10.r),
+                  child: SizedBox(
+                    width:80.w,
+                    height: 80.h,
+                    child:Image.network(controller.board1['url']!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              SizedBox(width: 10,),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(width:260.w, child: Text(controller.board1['title']!,style: TextStyle(color: Color(0xff9e9e9e)),)),
+                  SizedBox(height: 5.h,),
+                  SizedBox(width:260.w, child: Text(controller.board1['content']!,style: TextStyle(color: Color(0xff9e9e9e)),maxLines: 1,overflow: TextOverflow.ellipsis,)),
+
+                ],),
+
+            ],
+          ),
+
+        ),),
+        Obx(()=>Card(
+
+          color: Colors.transparent,
+          elevation: 0,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: (){
+                  controller.change();
+                },
+                onDoubleTap: () {
+                  controller.changeBack();
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: SizedBox(
+                    width:80.w,
+                    height: 80.h,
+                    child:Image.network(controller.board2['url']!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 10.w,),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(width:260.w, child: Text(controller.board2['title']!,style: TextStyle(color: Color(0xff9e9e9e)),)),
+                  SizedBox(height: 5,),
+                  SizedBox(width:260.w, child: Text(controller.board2['content']!,style: TextStyle(color: Color(0xff9e9e9e)),maxLines: 1,overflow: TextOverflow.ellipsis,)),
+
+                ],),
+
+            ],
+          ),
+
+        ),),
+        SizedBox(height: 10.h,)
 
 
+      ],
+    );
+  }
+}
+
+/**
 class PeopleNews extends StatefulWidget {
   const PeopleNews({Key? key}) : super(key: key);
 
@@ -11,12 +109,16 @@ class PeopleNews extends StatefulWidget {
 class _PeopleNewsState extends State<PeopleNews> {
   @override
   Widget build(BuildContext context) {
+    PeopleNewsController controller = Get.put(PeopleNewsController());
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('교인소식',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+        InkWell(
+          onTap: () => Get.to(PeopleNewsPage()),
+          child: Text('교인소식',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),),
+        ),
         Card(
 
           color: Colors.transparent,
@@ -25,11 +127,11 @@ class _PeopleNewsState extends State<PeopleNews> {
             mainAxisSize: MainAxisSize.min,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.r),
                   child: SizedBox(
-                    width:80,
-                    height: 80,
-                    child:Image.network('https://postfiles.pstatic.net/MjAyMTEwMjdfMTk4/MDAxNjM1MzQwMjYwMjE1.NM91425fGOCAGAVsGSk84i66w1PVrWWc6YFPvllJiNQg.OwfgrLWEVmaed1hnHZoCaP7VyNS4rKnRWQcsrORiyX0g.JPEG.speakerhong/IMG_8675.JPG?type=w580',
+                    width:80.w,
+                    height: 80.h,
+                    child:Image.network(controller.board1['url']!,
                         fit: BoxFit.cover,
                         ),
                       ),
@@ -38,9 +140,9 @@ class _PeopleNewsState extends State<PeopleNews> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(width:MediaQuery.of(context).size.width*0.9-100, child: Text('김정한 장로님의 손자인 김태인 청년의 결혼식입니다',style: TextStyle(color: Color(0xff9e9e9e)),)),
-                    SizedBox(height: 5,),
-                    SizedBox(width:MediaQuery.of(context).size.width*0.9-100, child: Text('12/23 오후 2시 신세계 컨벤션홀에서 열립니다.',style: TextStyle(color: Color(0xff9e9e9e)),maxLines: 1,overflow: TextOverflow.ellipsis,)),
+                    SizedBox(width:260.w, child: Text(controller.board1['title']!,style: TextStyle(color: Color(0xff9e9e9e)),)),
+                    SizedBox(height: 5.h,),
+                    SizedBox(width:260.w, child: Text(controller.board1['content']!,style: TextStyle(color: Color(0xff9e9e9e)),maxLines: 1,overflow: TextOverflow.ellipsis,)),
 
                   ],),
 
@@ -58,20 +160,20 @@ class _PeopleNewsState extends State<PeopleNews> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: SizedBox(
-                  width:80,
-                  height: 80,
-                  child:Image.network('https://i.pinimg.com/564x/97/d7/33/97d733f3cb7c720ca6825b2d4f215e1c.jpg',
+                  width:80.w,
+                  height: 80.h,
+                  child:Image.network(controller.board2['url']!,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              SizedBox(width: 10,),
+              SizedBox(width: 10.w,),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(width:MediaQuery.of(context).size.width*0.9-100, child: Text('교역자 부임 안내입니다',style: TextStyle(color: Color(0xff9e9e9e)),)),
+                  SizedBox(width:260.w, child: Text(controller.board2['title']!,style: TextStyle(color: Color(0xff9e9e9e)),)),
                   SizedBox(height: 5,),
-                  SizedBox(width:MediaQuery.of(context).size.width*0.9-100, child: Text('이영한 전도사님이 오늘부로 부임하셨습니다',style: TextStyle(color: Color(0xff9e9e9e)),maxLines: 1,overflow: TextOverflow.ellipsis,)),
+                  SizedBox(width:260.w, child: Text(controller.board2['content']!,style: TextStyle(color: Color(0xff9e9e9e)),maxLines: 1,overflow: TextOverflow.ellipsis,)),
 
                 ],),
 
@@ -79,13 +181,14 @@ class _PeopleNewsState extends State<PeopleNews> {
           ),
 
         ),
+        SizedBox(height: 10.h,)
 
 
       ],
     );
   }
 }
-
+*/
 class ChurchNews extends StatefulWidget {
   const ChurchNews({Key? key}) : super(key: key);
 
@@ -99,32 +202,35 @@ class _ChurchNewsState extends State<ChurchNews> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('교회소식',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+        InkWell(
+          onTap: () => Get.to(ChurchNewsPage()),
+          child: Text('교회소식',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),),
+        ),
         SizedBox(height: 5,),
         Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 2),
+          padding: EdgeInsets.symmetric(vertical: 2.h),
           child: Text('부모를 위한 성경적 성 가치관 학교 수강생 모집합니다',style: TextStyle(color:Color(0xff9e9e9e) ),),
         ),
         Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 2),
+          padding: EdgeInsets.symmetric(vertical: 2.h),
           child: Text('교육부 교사 모집합니다',style: TextStyle(color:Color(0xff9e9e9e)),)
         ),
         Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 2),
+            padding: EdgeInsets.symmetric(vertical: 2.h),
             child: Text('사랑의 선물 봉사 사진입니다:)',style: TextStyle(color:Color(0xff9e9e9e)),)
         ),
         Row(
           children: [
             Padding(
-              padding: EdgeInsets.only(right: 3),
+              padding: EdgeInsets.only(right: 3.w),
               child: Image.network(
                 'https://i.pinimg.com/736x/56/5c/85/565c852c7448cc27746fd05e96b2c668.jpg',
-                width: MediaQuery.of(context).size.width*0.9/4,
-                height: 80,
+                width: 90.w,
+                height: 80.h,
                 fit: BoxFit.cover,
               ),
             ),
@@ -132,8 +238,8 @@ class _ChurchNewsState extends State<ChurchNews> {
               padding: EdgeInsets.only(right: 3),
               child: Image.network(
                 'https://i.pinimg.com/736x/56/5c/85/565c852c7448cc27746fd05e96b2c668.jpg',
-                width: MediaQuery.of(context).size.width*0.9/4,
-                height: 80,
+                width: 90.w,
+                height: 80.h,
                 fit: BoxFit.cover,
               ),
             ),
@@ -141,15 +247,15 @@ class _ChurchNewsState extends State<ChurchNews> {
               padding: EdgeInsets.only(right: 10),
               child: Image.network(
                 'https://i.pinimg.com/736x/56/5c/85/565c852c7448cc27746fd05e96b2c668.jpg',
-                width: MediaQuery.of(context).size.width*0.9/4,
-                height: 80,
+                width: 90.w,
+                height: 80.h,
                 fit: BoxFit.cover,
               ),
             ),
-            Icon(Icons.more_horiz,size: 40,color: Colors.grey,)
+            Icon(Icons.more_horiz,size: 40.sp,color: Colors.grey,)
           ],
         ),
-        SizedBox(height: 20,),
+        SizedBox(height: 20.h,),
 
 
 
