@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bybloom_mvp/Auth/authservice.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -172,21 +171,5 @@ class profilephoto {
       print(e);
       return null;
     }
-  }
-  /*
-  Future<bool> uploadURLtoDB(String path) async{
-    try{
-      print('try');
-      await database
-      .ref(path)
-      .child('profile')
-      .child('photo')
-      .push()
-      .set({'url':path});
-      return true;
-    } catch(e){
-      print(e);
-      return false;
-    }*/
+  }  }
 
-  }
