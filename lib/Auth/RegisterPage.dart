@@ -52,13 +52,43 @@ class CustomTextField extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)
               )
           ),
-          validator: (value) => value!.isEmpty?'$type이 입력되지 않았습니다':null,
+          validator: (value) => _validatorBuilder(value!),
           obscureText: type=='비밀번호' || type=='비밀번호 확인'?true:false,
           onSaved:(value){ s![type]=value;}
 
       ),
     );
   }
+  _validatorBuilder(String value) {
+    if (value.isEmpty) {
+      return '$type이 입력되지 않았습니다';
+    }
+
+    // 아이디 db에 확인해서 겹치는거 있나 확인하는 작업 필요할 듯! 
+    switch(type){
+      case '아이디' :
+        if (!value.contains('@')) {
+          return '이메일 형식을 지켜주세요';
+        }else {
+          return null;
+        }
+      case '비밀번호' :
+        if (value.length<6) {
+          return '비밀번호는 6자 이상이어야 합니다.';
+        }else {
+          return null;
+        }
+      case '비밀번호 확인' :
+        if (value.length<6) {
+          return '비밀번호는 6자 이상이어야 합니다.';
+        }else {
+          return null;
+        }
+      default :
+        return null;
+    }
+  }
+
 }
 class RegisterForm extends StatelessWidget {
   RegisterForm({Key? key}) : super(key: key);
