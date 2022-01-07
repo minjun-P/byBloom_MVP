@@ -41,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: CircleAvatar(
                 backgroundImage:downloadURL==null?
                 NetworkImage('https://file.mk.co.kr/meet/neds/2018/06/image_readtop_2018_363950_15284412663345335.jpg'):
-                NetworkImage(downloadURL!),
+                NetworkImage(downloadURL!,scale:3),
 
                 radius: 60,
               ),
@@ -118,12 +118,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   AddProfilePhoto() async {
-    await getImage(true);  //갤러리에서 사진가져오
+    await getImage(true);  //갤러리에서 사진가져오기
     profilephoto s= new profilephoto();
     print(_photo);
-    String? uploadsuccess= await s.uploadPhoto(_photo); //db에업로
-    print(uploadsuccess);
+    String? uploadsuccess= await s.uploadPhoto(_photo); //db에 업로드
     downloadURL= await storage.ref(uploadsuccess).getDownloadURL();
+    print('downloadURL');
 
   }
 

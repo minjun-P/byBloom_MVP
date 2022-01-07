@@ -26,7 +26,8 @@ class _MainScreenState extends State<MainScreen> {
             icon:Icon(Icons.logout),
             onPressed: (){
               authservice.logout();
-              Get.toNamed('/');
+
+              Get.offAllNamed('/');
     }
 
             ,
