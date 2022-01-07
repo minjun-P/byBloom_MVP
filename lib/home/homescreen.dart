@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bybloom_mvp/home/components/news.dart';
 import 'components/notice_board.dart';
 import 'package:bybloom_mvp/Tools/url_laucher.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

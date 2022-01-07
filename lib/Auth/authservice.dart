@@ -49,4 +49,9 @@ class authservice {// 로그인관련 서비스총괄하는 클래스
     return currentuser;
   }
 
+  static logout(){
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signOut();
+  }
+
 }
