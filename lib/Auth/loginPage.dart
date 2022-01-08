@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'authservice.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,6 +19,7 @@ class LoginPage extends StatelessWidget {
           children: [
             _loginIconBuilder('로그인하기', 150),
             LoginForm(),
+            ElevatedButton(onPressed: (){Get.toNamed('/Main');}, child: Text('로그인 귀찮아')),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

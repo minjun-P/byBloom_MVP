@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:bybloom_mvp/schedule/model/calendar_model.dart';
-/**
- * 캘린더 내부 정보를 기록할 객체를 하나 만들어서 날짜별로 해당하는 일정을 표시할 수 있도록
- * 만들어놔야 할 것 같다. 구체적인 방식은 더 고민을 해보자.
- *
- * 잠깐 생각한 건데, json 처럼 형태를 구성해도 좋을 것 같다.
- * 최상위 계층 key는 날짜,
- * 그다음은 날짜별 일정, 일정은 또 교회 공식일정, 개인신청일정으로 나누고
- */
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:bybloom_mvp/schedule/schedule_controller.dart';
 
-class Calendar extends StatefulWidget {
-  const Calendar({Key? key}) : super(key: key);
+class Calendar extends StatelessWidget {
+  Calendar({Key? key}) : super(key: key);
+  CalendarController controller = Get.put(CalendarController());
 
-  @override
-  _CalendarState createState() => _CalendarState();
-}
-
-class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(10.w),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
           color: Colors.white,
         ),
 
@@ -31,13 +22,13 @@ class _CalendarState extends State<Calendar> {
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(child: Center(child: Text('일',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),), height: 50,),
-                    Container(child: Center(child: Text('월',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)), height: 50,),
-                    Container(child: Center(child: Text('화',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)), height: 50,),
-                    Container(child: Center(child: Text('수',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)), height: 50,),
-                    Container(child: Center(child: Text('목',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)), height: 50,),
-                    Container(child: Center(child: Text('금',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)), height: 50,),
-                    Container(child: Center(child: Text('토',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)), height: 50,),
+                    Container(child: Center(child: Text('일',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold),),), height: 50,),
+                    Container(child: Center(child: Text('월',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold),)), height: 50,),
+                    Container(child: Center(child: Text('화',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold),)), height: 50,),
+                    Container(child: Center(child: Text('수',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold),)), height: 50,),
+                    Container(child: Center(child: Text('목',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold),)), height: 50,),
+                    Container(child: Center(child: Text('금',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold),)), height: 50,),
+                    Container(child: Center(child: Text('토',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold),)), height: 50,),
                   ]
               ),
               Table(
@@ -51,16 +42,22 @@ class _CalendarState extends State<Calendar> {
                       List.generate(7,(index) {
                         return TableCell(
                           child: Container(
-                            height: 100,
+                            padding: EdgeInsets.only(top: 5.h),
+                            height: 90.h,
                             child: Column(
                               children: [
                                 Align(
-                                    alignment: Alignment(-0.8,-0.8),
-                                    child: Text('${index+2}')
+                                    alignment: Alignment(-0.8,0),
+                                    child: InkWell(
+                                        onTap: () {
+                                          controller.update(index+2);
+                                          print(index+2);
+                                        },
+                                        child: Container(width:double.infinity,child: Text('${index+2}')))
                                 ),
 
-                                _officialScheduleBuilder(OfficialMap,index+2),
-                                _personalScheduleBuilder(PersonalMap,index+2)
+                                Obx(()=>_officialScheduleBuilder(controller.OfficialMap,index+2)),
+                                Obx(()=>_personalScheduleBuilder(controller.PersonalMap,index+2))
                               ],
 
                             ),
@@ -74,16 +71,22 @@ class _CalendarState extends State<Calendar> {
                       List.generate(7,(index) {
                         return TableCell(
                           child: Container(
-                            height: 100,
+                            padding: EdgeInsets.only(top: 5),
+                            height: 90.h,
                             child: Column(
                               children: [
                                 Align(
-                                    alignment: Alignment(-0.8,-0.8),
-                                    child: Text('${index+9}')
+                                    alignment: Alignment(-0.8,-0),
+                                    child: InkWell(
+                                        onTap: (){
+                                          controller.update(index+9);
+                                        },
+                                        child: Text('${index+9}')
+                                    )
                                 ),
 
-                                _officialScheduleBuilder(OfficialMap,index+9),
-                                _personalScheduleBuilder(PersonalMap,index+9)
+                                _officialScheduleBuilder(controller.OfficialMap,index+9),
+                                _personalScheduleBuilder(controller.PersonalMap,index+9)
                               ],
 
                             ),
@@ -98,21 +101,38 @@ class _CalendarState extends State<Calendar> {
             ]
         )
     );
+
   }
+  _officialScheduleBuilder(Map schedule,int day) {
 
-  _officialScheduleBuilder(Map schedule,int index) {
-
-    if (schedule.containsKey(index.toString())) {
-      return Container(
-        height:20,
-        width: (MediaQuery.of(context).size.width*0.9-20)/7-2,
-        margin: EdgeInsets.symmetric(horizontal: 4),
-        decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(10)
-        ),
-        alignment: Alignment.center,
-        child: Text(schedule[index.toString()],style: TextStyle(fontSize: 7),),
+    if (schedule.containsKey(day.toString())) {
+      return Column(
+        children: List.generate(schedule[day.toString()].length,(index) {
+          return InkWell(
+            onTap: (){
+              Get.defaultDialog(
+                  title: '$day일',
+                  middleText: '${schedule[day.toString()][index]}',
+                  textConfirm: '확인',
+                  onConfirm: (){
+                    Get.back();
+                  }
+              );
+            },
+            child: Container(
+              height: 20,
+              padding: EdgeInsets.symmetric(vertical: 3.h),
+              width: 50.w,
+              margin: EdgeInsets.symmetric(horizontal: 4.w),
+              decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(10.r)
+              ),
+              alignment: Alignment.center,
+              child: Text(schedule[day.toString()][index],style: TextStyle(fontSize: 7.sp),),
+            ),
+          );
+        }),
       );
 
     } else {
@@ -121,20 +141,38 @@ class _CalendarState extends State<Calendar> {
       );
     }
   }
-  _personalScheduleBuilder(Map schedule,int index) {
+  _personalScheduleBuilder(Map schedule,int day) {
 
-    if (schedule.containsKey(index.toString())) {
-      return Container(
-        height: 20,
-        width: (MediaQuery.of(context).size.width*0.9-20)/7-2,
-        margin: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
-        decoration: BoxDecoration(
-            color: index%2==0?Colors.cyan:Colors.yellow,
-            borderRadius: BorderRadius.circular(5)
-        ),
-        alignment: Alignment.center,
-        child: Text(schedule[index.toString()],style: TextStyle(fontSize: 7),),
+    if (schedule.containsKey(day.toString())) {
+      return Column(
+          children: List.generate(schedule[day.toString()].length, (index){
+            return InkWell(
+              onTap: (){
+                Get.defaultDialog(
+                    title: '$day일',
+                    middleText: '${schedule[day.toString()][index]}',
+                    textConfirm: '확인',
+                    onConfirm: (){
+                      Get.back();
+                    }
+                );
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 3.h),
+                height: 20,
+                width: 50.w,
+                margin: EdgeInsets.symmetric(horizontal: 4.w,vertical: 3.h),
+                decoration: BoxDecoration(
+                    color: day%2==0?Colors.cyan:Colors.yellow,
+                    borderRadius: BorderRadius.circular(5.r)
+                ),
+                alignment: Alignment.center,
+                child: Text(schedule[day.toString()][index],style: TextStyle(fontSize: 7.sp),),
+              ),
+            );
+          })
       );
+
 
     } else {
       return Container(
@@ -143,3 +181,5 @@ class _CalendarState extends State<Calendar> {
     }
   }
 }
+
+
