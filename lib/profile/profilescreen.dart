@@ -1,14 +1,18 @@
 import 'dart:io';
 import 'package:bybloom_mvp/Auth/authservice.dart';
+import 'package:bybloom_mvp/Post/Postpage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bybloom_mvp/Post/Post.dart';
+import 'package:get/get.dart';
 
 
 String? pphotoloc;
+User? curuser = authservice.getcurrentUser();
 final database= FirebaseDatabase(databaseURL: 'https://bybloommvp-default-rtdb.asia-southeast1.firebasedatabase.app/');
 final storage= FirebaseStorage.instance;
 
@@ -25,6 +29,28 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   File? _photo;
   String? downloadURL;
+  List<Post> postlist= new List.empty(growable: true);
+
+  @override
+  void initState() {
+    super.initState();
+    if (curuser!=null){
+
+    }
+    String userdir='users/${authservice.getcurrentUser()?.uid}';
+
+    database.ref('$userdir/post').onChildAdded.listen((event) {
+      print(event.snapshot.value.toString());
+      final data =Map<String,dynamic>.from(event.snapshot.value as Map);
+      if(mounted){setState(() {
+        Post s=Post(data['downloadURL'],data['URL']);
+        s.key=event.snapshot.key;
+        postlist.add(s);
+        print("postadded");
+      });
+    }});
+    }
+
 
 
 
@@ -97,10 +123,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
               ),
-              itemCount: 42,
+              itemCount: postlist.length,
               itemBuilder: (BuildContext context, int index) {
-                return Image.network(
-                    "https://picsum.photos/id/${index + 1}/200/200"
+                return Card(
+                  child:GridTile(
+                    child: InkWell(
+                      child:Image.network(postlist[index].downloadURL!),
+                      onTap: (){Get.to(PostViewPage(),arguments: postlist);},
+                    )
+                  )
                 );
               }),
         ),
@@ -109,7 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ],
     ),
       floatingActionButton: FloatingActionButton(onPressed: () {
-        database.ref().child('test').set({"test":1});
+        AddPhotoPost();
       },
       child: Icon(Icons.add_a_photo),
 
@@ -119,13 +150,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   AddProfilePhoto() async {
     await getImage(true);  //갤러리에서 사진가져오기
-    profilephoto s= new profilephoto();
+    Addphoto s= new Addphoto();
     print(_photo);
     String? uploadsuccess= await s.uploadPhoto(_photo); //db에 업로드
     downloadURL= await storage.ref(uploadsuccess).getDownloadURL();
     print('downloadURL');
 
   }
+  AddPhotoPost() async {
+    await getImage(true);  //갤러리에서 사진가져오기
+    Addphoto s= new Addphoto();
+    print(_photo);
+    String? uploadsuccess= await s.uploadPost(_photo); //db에 업로드
+    downloadURL= uploadsuccess;
+    print('downloadURL');
+  }
+
 
   Future getImage(bool gallery) async {
 
@@ -153,7 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 }
 
-class profilephoto {
+class Addphoto {
   User? curuser = authservice.getcurrentUser();
   String userdir = 'users/${authservice
       .getcurrentUser()
@@ -161,7 +201,6 @@ class profilephoto {
 
   Future<String?> uploadPhoto(File? s) async {
     try {
-      print("주소 $storage.ref().toString()");
 
       await storage
           .ref('$userdir/profilephoto.png')
@@ -171,5 +210,25 @@ class profilephoto {
       print(e);
       return null;
     }
-  }  }
+  }
+  Future<String?> uploadPost(File? s) async {
+    try {
+     DatabaseReference dbref= await database.ref(userdir).child('post').push();
+     print(dbref.toString());
+     String? postkey=dbref.key;
+     await storage
+          .ref('$userdir/post/$postkey.png')
+          .putFile(s!);
+     String url='$userdir/post/$postkey.png';
+     String downloadURL= await storage.ref(url).getDownloadURL();
+     dbref.set({"URL":url,
+     "downloadURL":downloadURL});
+     return downloadURL;
+    } on FirebaseException catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+}
 
