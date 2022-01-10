@@ -49,9 +49,11 @@ class Calendar extends StatelessWidget {
                                 Align(
                                     alignment: Alignment(-0.8,0),
                                     child: InkWell(
-                                        onTap: () {
+                                        onDoubleTap: (){
                                           controller.add(index+2);
-                                          print(index+2);
+                                        },
+                                        onTap: (){
+                                          Get.toNamed('/Calendar/${index+2}');
                                         },
                                         child: Container(width:double.infinity,child: Text('${index+2}')))
                                 ),
@@ -84,8 +86,11 @@ class Calendar extends StatelessWidget {
                                 Align(
                                     alignment: Alignment(-0.8,-0),
                                     child: InkWell(
-                                        onTap: (){
+                                        onDoubleTap: (){
                                           controller.add(index+9);
+                                        },
+                                        onTap: (){
+                                          Get.toNamed('/Calendar/${index+9}');
                                         },
                                         child: Text('${index+9}')
                                     )

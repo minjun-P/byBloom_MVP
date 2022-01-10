@@ -1,6 +1,7 @@
 import 'package:bybloom_mvp/Auth/RegisterPage.dart';
 import 'package:bybloom_mvp/Auth/loginPage.dart';
 import 'package:bybloom_mvp/mainscreen.dart';
+import 'package:bybloom_mvp/schedule/components/calendar_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
@@ -41,6 +42,11 @@ class MyApp extends StatelessWidget {
           GetPage(
             name:'/PostView',
             page:() => PostViewPage()
+          ),
+          GetPage(
+            name: '/Calendar/:day',
+            page: () => CalendarDetailPage()
+
           )
         ],
 
