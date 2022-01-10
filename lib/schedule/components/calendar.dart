@@ -43,21 +43,27 @@ class Calendar extends StatelessWidget {
                         return TableCell(
                           child: Container(
                             padding: EdgeInsets.only(top: 5.h),
-                            height: 90.h,
+                            height: 100.h,
                             child: Column(
                               children: [
                                 Align(
                                     alignment: Alignment(-0.8,0),
                                     child: InkWell(
                                         onTap: () {
-                                          controller.update(index+2);
+                                          controller.add(index+2);
                                           print(index+2);
                                         },
                                         child: Container(width:double.infinity,child: Text('${index+2}')))
                                 ),
+                                GetBuilder<CalendarController>(
+                                  init: controller,
+                                  builder: (_) =>_officialScheduleBuilder(_.OfficialMap,index+2),
+                                )
 
-                                Obx(()=>_officialScheduleBuilder(controller.OfficialMap,index+2)),
-                                Obx(()=>_personalScheduleBuilder(controller.PersonalMap,index+2))
+                                ,
+                                GetBuilder<CalendarController>(
+                                  builder: (_) => _personalScheduleBuilder(_.PersonalMap,index+2),
+                                )
                               ],
 
                             ),
@@ -79,14 +85,21 @@ class Calendar extends StatelessWidget {
                                     alignment: Alignment(-0.8,-0),
                                     child: InkWell(
                                         onTap: (){
-                                          controller.update(index+9);
+                                          controller.add(index+9);
                                         },
                                         child: Text('${index+9}')
                                     )
                                 ),
 
-                                _officialScheduleBuilder(controller.OfficialMap,index+9),
-                                _personalScheduleBuilder(controller.PersonalMap,index+9)
+                                GetBuilder<CalendarController>(
+                                  init: controller,
+                                  builder: (_) =>_officialScheduleBuilder(_.OfficialMap,index+9),
+                                )
+
+                                ,
+                                GetBuilder<CalendarController>(
+                                  builder: (_) => _personalScheduleBuilder(_.PersonalMap,index+9),
+                                )
                               ],
 
                             ),
@@ -120,7 +133,7 @@ class Calendar extends StatelessWidget {
               );
             },
             child: Container(
-              height: 20,
+              height: 20.h,
               padding: EdgeInsets.symmetric(vertical: 3.h),
               width: 50.w,
               margin: EdgeInsets.symmetric(horizontal: 4.w),
@@ -159,7 +172,7 @@ class Calendar extends StatelessWidget {
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 3.h),
-                height: 20,
+                height: 20.h,
                 width: 50.w,
                 margin: EdgeInsets.symmetric(horizontal: 4.w,vertical: 3.h),
                 decoration: BoxDecoration(

@@ -6,7 +6,8 @@ class RequestController {
   var title = '수민님, 성경통독반은 어떠세요?'.obs;
 }
 
-class CalendarController {
+class CalendarController extends GetxController{
+  // 얘는 위와 다르게 단순상태관리 컨트롤러 만들어봤음.
   var OfficialMap = {
     '2':['신년주일예배'],
     '5':['수요예배'],
@@ -14,20 +15,23 @@ class CalendarController {
     '9':['주일예배'],
     '12':['수요예배'],
     '14':['금요예배']
-  }.obs;
+  };
   var PersonalMap = {
   '5':['청소봉사'],
   '7':['마더와이즈','치킨모임'],
   '8':['어와나'],
   '14':['마더와이즈'],
   '15':['어와나']
-  }.obs;
-  void update(index) {
+  };
+  void add(index) {
     if (PersonalMap.containsKey(index.toString())) {
       PersonalMap[index.toString()]!.add('치킨ㄱ?');
 
+
     } else {
       PersonalMap[index.toString()] = ['치킨ㄱ?'];
+
     }
+    update();
   }
 }
