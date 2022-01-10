@@ -1,8 +1,10 @@
+import 'package:bybloom_mvp/Auth/authservice.dart';
 import 'package:bybloom_mvp/home/homescreen.dart';
 import 'package:bybloom_mvp/profile/profilescreen.dart';
 import 'package:bybloom_mvp/schedule/shcedulescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -20,7 +22,16 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         title: Text(_appBarTitleList[_selectedIndex]),
         actions: [
-          Icon(Icons.notifications),
+          IconButton(
+            icon:Icon(Icons.logout),
+            onPressed: (){
+              authservice.logout();
+
+              Get.offAllNamed('/');
+    }
+
+            ,
+          ),
           SizedBox(width: 10.w,),
           Icon(Icons.menu),
           SizedBox(width: 10.w,),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:bybloom_mvp/Post/Postpage.dart';
 
 void main() async {
 
@@ -36,6 +37,10 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: '/Register',
             page: () => RegisterPage()
+          ),
+          GetPage(
+            name:'/PostView',
+            page:() => PostViewPage()
           )
         ],
 

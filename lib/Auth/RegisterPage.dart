@@ -22,7 +22,8 @@ class _RegisterPage extends State<RegisterPage>{
             child: ListView(
               children: [
                 Text('회원가입', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),),
-                RegisterForm()
+                RegisterForm(),
+
               ],
             )
         )
