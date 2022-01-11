@@ -9,6 +9,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bybloom_mvp/Post/Post.dart';
 import 'package:get/get.dart';
+import 'package:extended_image/extended_image.dart';
 
 
 String? pphotoloc;
@@ -128,7 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return Card(
                   child:GridTile(
                     child: InkWell(
-                      child:Image.network(postlist[index].downloadURL!),
+                      child:ExtendedImage.network(postlist[index].downloadURL!,cache: true,),
                       onTap: (){Get.to(PostViewPage(),arguments: postlist);},
                     )
                   )

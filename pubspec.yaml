@@ -41,6 +41,7 @@ dependencies:
   firebase_storage: ^10.2.4
   get: ^4.6.1
   url_launcher: ^6.0.17
+  extended_image: ^6.0.1
 
 
 
