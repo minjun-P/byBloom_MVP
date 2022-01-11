@@ -40,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/20),
+        padding: EdgeInsets.symmetric(horizontal: 0.05.sw),
         color: Color(0xFFf1f8f7),
         child: IndexedStack(
           index: _selectedIndex,

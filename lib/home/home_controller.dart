@@ -29,3 +29,16 @@ class PeopleNewsController {
     board2['url'] = 'https://i.pinimg.com/564x/97/d7/33/97d733f3cb7c720ca6825b2d4f215e1c.jpg';
   }
 }
+
+class ChurchNewsController {
+  var board1 = '부모를 위한 성경적 성 가치관 학교 수강생 모집합니다'.obs;
+  var board2 = '교육부 교사 모집합니다'.obs;
+  var board3 = <String,dynamic>{
+    'title':'사랑의 선물 봉사 사진입니다.',
+    'pic':[
+      'https://i.pinimg.com/736x/56/5c/85/565c852c7448cc27746fd05e96b2c668.jpg',
+      'https://i.pinimg.com/564x/28/98/18/289818a4b0cc26aa39517489e85e1e07.jpg',
+      'https://i.pinimg.com/736x/72/66/40/72664053608151360bd2392c4a43587f.jpg'
+    ]
+  }.obs;
+}
