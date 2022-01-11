@@ -55,7 +55,7 @@ class Calendar extends StatelessWidget {
                                         onTap: (){
                                           Get.toNamed('/Calendar/${index+2}');
                                         },
-                                        child: Container(width:double.infinity,child: Text('${index+2}')))
+                                        child: Container(child: Text('${index+2}')))
                                 ),
                                 GetBuilder<CalendarController>(
                                   init: controller,
