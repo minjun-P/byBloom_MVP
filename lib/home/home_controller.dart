@@ -1,5 +1,7 @@
-
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+
+
 
 class NoticeController {
   var board1 = <String,String>{'title':'ST기도회를 다시 시작합니다.','content':'매일 오전 11:30 시민의 교회 유튜브 채널에서 방송합니다'}.obs;
@@ -17,6 +19,41 @@ class NoticeController {
     dropdownValue(value);
   }
 }
+enum DropDownMenu {LATE, MANY, POPULAR}
+
+extension DropDownMenumExtension on DropDownMenu {
+  String get name {
+    switch (this) {
+      case DropDownMenu.LATE:
+        return '최신순';
+      case DropDownMenu.MANY:
+        return '조회순';
+      case DropDownMenu.POPULAR:
+        return '인기순';
+    }
+  }
+}
+
+class DropDownController {
+  Rx<DropDownMenu> currentValue = DropDownMenu.LATE.obs;
+  final dropKey = GlobalKey();
+
+  void chageDropDownMenu(value) {
+    currentValue(value);
+  }
+
+  double get positionY {
+    var box = dropKey.currentContext!.findRenderObject();
+    var translation = box!.getTransformTo(null).getTranslation();
+    return box.paintBounds.shift(Offset(translation.x,translation.y)).bottomCenter.dy;
+  }
+  double get positionX {
+    var box = dropKey.currentContext!.findRenderObject();
+    var translation = box!.getTransformTo(null).getTranslation();
+    return box.paintBounds.shift(Offset(translation.x,translation.y)).bottomLeft.dx;
+  }
+}
+
 
 class PeopleNewsController {
   var board1 = <String,String>{'title':'김정한 장로님의 손자인 김태인 청년의 결혼식입니다.','content':'12/23 오후 2시 신세계 컨벤션홀에서 열립니다.','url':'https://postfiles.pstatic.net/MjAyMTEwMjdfMTk4/MDAxNjM1MzQwMjYwMjE1.NM91425fGOCAGAVsGSk84i66w1PVrWWc6YFPvllJiNQg.OwfgrLWEVmaed1hnHZoCaP7VyNS4rKnRWQcsrORiyX0g.JPEG.speakerhong/IMG_8675.JPG?type=w580'}.obs;
