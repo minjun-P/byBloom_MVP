@@ -10,7 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bybloom_mvp/Post/Post.dart';
 import 'package:get/get.dart';
 import 'package:extended_image/extended_image.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 String? pphotoloc;
 User? curuser = authservice.getcurrentUser();
@@ -129,7 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return Card(
                   child:GridTile(
                     child: InkWell(
-                      child:ExtendedImage.network(postlist[index].downloadURL!,cache: true,),
+                      child:ExtendedImage.network(postlist[index].downloadURL!,cache: true,width: 100.w,height: 100.w,),
                       onTap: (){Get.to(PostViewPage(),arguments: postlist);},
                     )
                   )
