@@ -67,8 +67,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             InkWell(
               child: CircleAvatar(
                 backgroundImage:downloadURL==null?
-                NetworkImage('https://file.mk.co.kr/meet/neds/2018/06/image_readtop_2018_363950_15284412663345335.jpg'):
-                NetworkImage(downloadURL!,scale:3),
+                ExtendedNetworkImageProvider('https://file.mk.co.kr/meet/neds/2018/06/image_readtop_2018_363950_15284412663345335.jpg'):
+                ExtendedNetworkImageProvider(downloadURL!,cache: true,scale:1),
 
                 radius: 60,
               ),
@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('게시물 25',
+                Text('게시물 ${postlist.length}',
                   style: TextStyle(color: Colors.grey, fontSize: 18),),
                 SizedBox(height: 5,),
                 Text('매일 성경필사 도전중!', style: TextStyle(color: Colors.grey)),
