@@ -16,7 +16,7 @@ class PeopleNews extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InkWell(
-          onTap: () => Get.to(PeopleNewsPage()),
+          onTap: () => Get.to(PeopleNewsPage(),id: 0),
           child: Text('교인소식',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),),
         ),
@@ -108,7 +108,7 @@ class ChurchNews extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InkWell(
-          onTap: () => Get.to(ChurchNewsPage()),
+          onTap: () => Get.to(ChurchNewsPage(),id: 0),
           child: Text('교회소식',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),),
         ),

@@ -1,3 +1,5 @@
+
+import 'package:bybloom_mvp/schedule/components/calendar_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:bybloom_mvp/schedule/model/calendar_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,7 +55,7 @@ class Calendar extends StatelessWidget {
                                           controller.add(index+2);
                                         },
                                         onTap: (){
-                                          Get.toNamed('/Calendar/${index+2}');
+                                          Get.to(CalendarDetailPage(index+2),id: 1);
                                         },
                                         child: Container(child: Text('${index+2}')))
                                 ),
@@ -90,7 +92,7 @@ class Calendar extends StatelessWidget {
                                           controller.add(index+9);
                                         },
                                         onTap: (){
-                                          Get.toNamed('/Calendar/${index+9}');
+                                          Get.to(CalendarDetailPage(index+9), id: 1);
                                         },
                                         child: Text('${index+9}')
                                     )
@@ -201,3 +203,13 @@ class Calendar extends StatelessWidget {
 }
 
 
+class TestPage extends StatelessWidget {
+  const TestPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(child: Text(Get.parameters['id']!),),
+    );
+  }
+}

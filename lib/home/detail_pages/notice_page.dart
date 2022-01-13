@@ -7,7 +7,6 @@ class NoticePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('공지사항'),),
       body: Container(
         width: double.infinity,
         height: double.infinity,

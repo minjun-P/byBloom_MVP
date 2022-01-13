@@ -5,22 +5,20 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CalendarDetailPage extends StatelessWidget {
-  CalendarDetailPage({Key? key}) : super(key: key);
+  CalendarDetailPage(this.day,{Key? key}) : super(key: key);
 
-  final day = Get.parameters['day'];
+  final int day;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('$day 일의 일정'),
-        titleSpacing: 10,
-      ),
       backgroundColor: MColor,
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 0.05.sw),
         child: ListView(
           children: [
+            Text('$day일의 일정',style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.bold),),
+            SizedBox(height: 10.h,),
             GetBuilder<CalendarController>(
               builder: (_) => _detailBuilder('교회공식 일정',_.OfficialMap),
             ),
@@ -48,12 +46,12 @@ class CalendarDetailPage extends StatelessWidget {
             Text(title,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
             Divider(thickness: 2,),
             ...List.generate(
-                schedule.containsKey(day)?schedule[day]!.length:0,
+                schedule.containsKey(day.toString())?schedule[day.toString()]!.length:0,
                     (index) => Row(
                   children: [
                     Icon(Icons.task_alt,size: 17,),
                     SizedBox(width: 5.w,),
-                    Text(schedule[Get.parameters['day']]![index], style: TextStyle(fontSize: 17),)
+                    Text(schedule[day.toString()]![index], style: TextStyle(fontSize: 17),)
                   ],
                 )
             )

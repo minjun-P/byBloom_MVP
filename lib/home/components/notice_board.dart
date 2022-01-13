@@ -23,7 +23,7 @@ class NoticeBoard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               InkWell(
-                onTap: () => Get.to(NoticePage()),
+                onTap: () => Get.to(NoticePage(),id: 0),
                 child: Text(
                   '공지사항',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
