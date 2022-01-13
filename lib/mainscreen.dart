@@ -1,4 +1,5 @@
 import 'package:bybloom_mvp/Auth/authservice.dart';
+import 'package:bybloom_mvp/feed/feedscreen.dart';
 import 'package:bybloom_mvp/home/homescreen.dart';
 import 'package:bybloom_mvp/profile/profilescreen.dart';
 import 'package:bybloom_mvp/schedule/shcedulescreen.dart';
@@ -65,7 +66,8 @@ class MainScreen extends GetView<MainController> {
                       }
                   ),
 
-                  ProfileScreen()
+                  ProfileScreen(),
+                  FeedScreen()
                 ],
               ),
             ),
@@ -76,6 +78,7 @@ class MainScreen extends GetView<MainController> {
                     icon: Icon(Icons.auto_awesome_mosaic), label: ''),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.perm_identity), label: ''),
+                BottomNavigationBarItem(icon: Icon(Icons.feed), label: ''),
               ],
 
               onTap: (index) {
