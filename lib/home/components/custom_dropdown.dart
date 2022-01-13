@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bybloom_mvp/home/home_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDropDownButton extends GetView<DropDownController> {
   const CustomDropDownButton({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class CustomDropDownList extends GetView<DropDownController> {
           ),
           Positioned(
             left: controller.positionX,
-            top: controller.positionY-5,
+            top: controller.positionY-5.h,
             child: ClipRRect(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
               child: Column(

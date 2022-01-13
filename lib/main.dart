@@ -1,5 +1,6 @@
 import 'package:bybloom_mvp/Auth/RegisterPage.dart';
 import 'package:bybloom_mvp/Auth/loginPage.dart';
+import 'package:bybloom_mvp/main_controller.dart';
 import 'package:bybloom_mvp/mainscreen.dart';
 import 'package:bybloom_mvp/schedule/components/calendar_detail.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
       builder: () => GetMaterialApp(
         title: 'byBloom MVP',
         initialRoute: '/',
+        initialBinding: BindingsBuilder((){
+          Get.put(MainController());
+        }),
         getPages: [
           GetPage(
             name: '/',
@@ -43,11 +47,6 @@ class MyApp extends StatelessWidget {
             name:'/PostView',
             page:() => PostViewPage()
           ),
-          GetPage(
-            name: '/Calendar/:day',
-            page: () => CalendarDetailPage()
-
-          )
         ],
 
         theme: ThemeData(
