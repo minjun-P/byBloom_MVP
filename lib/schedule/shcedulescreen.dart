@@ -49,6 +49,7 @@ class ScheduleScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+
             RequestBlock(color: Color(0xfffff2cc),text: '예배',),
             RequestBlock(color: Color(0xfffce5cd),text: '봉사',),
             RequestBlock(color: Color(0xffd9ead3),text: '교육',),
