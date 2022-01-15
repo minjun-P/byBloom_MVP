@@ -10,7 +10,7 @@ class CustomDropDownButton extends GetView<DropDownController> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.to(CustomDropDownList(),opaque: false,transition: Transition.fadeIn);
+        Get.to(()=>CustomDropDownList(),opaque: false,transition: Transition.fadeIn);
       },
       child: Container(
           padding: EdgeInsets.all(6),

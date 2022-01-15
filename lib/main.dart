@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         initialBinding: BindingsBuilder((){
           Get.put(MainController());
+
         }),
         getPages: [
           GetPage(
