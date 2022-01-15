@@ -1,8 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:bybloom_mvp/home/homescreen.dart';
-import 'package:bybloom_mvp/profile/profilescreen.dart';
-import 'package:bybloom_mvp/schedule/shcedulescreen.dart';
 
 
 class MainController extends GetxController{
@@ -13,14 +10,15 @@ class MainController extends GetxController{
     selectedIndex(index);
   }
 
+  RxList whetherCanPopEachNavigator = [false,false,false,false].obs;
 
+  void updateWhetherCanPop(int index) {
+    final whetherCanPop = Get.nestedKey(index)!.currentState!.canPop();
 
-  void canPop(int selectedIndex) {
-    bool popable = Get.nestedKey(selectedIndex)!.currentState == null?false:Get.nestedKey(selectedIndex)!.currentState!.canPop();
-    popPossible(popable);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      whetherCanPopEachNavigator[index] = whetherCanPop;
+    });
   }
-
-  RxBool popPossible = false.obs;
 
 
   Future<bool> onWillPop() async{
@@ -28,6 +26,10 @@ class MainController extends GetxController{
     ! await Get.nestedKey(selectedIndex.value)!.currentState!.maybePop();
     return isFirstRouteInCurrentTab;
   }
+
+
+
+
 
 
 }
